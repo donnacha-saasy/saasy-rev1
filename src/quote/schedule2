@@ -1,0 +1,21 @@
+const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = React.useState(true)
+
+    useEffect(() => {
+        const getJobs =
+            db.collection('schedule')
+                .onSnapshot(snapshot => {
+                    const jobs = []
+                    snapshot.forEach(doc => {
+                        jobs.push(doc)
+                    });
+                    setLoading(false)
+                    setJobs(jobs)
+                },
+                    err => {
+                        setError(err)
+                    }
+                )
+        return () =>
+            console.log(jobs);
+    }, [])
